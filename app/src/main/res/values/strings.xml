@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ShoppinglistHQ</string>
+
+    <string name="hello_world">Hallo Welt</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="cab_delete">Eintrag löschen</string>
+
+    <string name="editText_hint_quantity">Anzahl</string>
+    <string name="editText_hint_product">Produkt</string>
+    <string name="button_add_product">+</string>
+
+    <string name="editText_errorMessage">Das Feld darf nicht leer sein</string>
+</resources>
