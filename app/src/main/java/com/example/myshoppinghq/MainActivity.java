@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 return view;
             }
         };
+
+        mShoppingMemosListView.setAdapter(shoppingMemoArrayAdapter);
     }
 
 
