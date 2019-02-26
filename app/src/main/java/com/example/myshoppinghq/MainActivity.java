@@ -89,9 +89,19 @@ public class MainActivity extends AppCompatActivity {
         shoppingMemoListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
         shoppingMemoListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
+            int selCount = 0;
+
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                Log.d(TAG, "onItemCheckedStateChanged: Position: " + position + " isChecked: " + checked);
+                if (checked) {
+                    selCount++;
+                } else {
+                    selCount--;
+                }
+                String cabTitel = selCount + " " + getString(R.string.cab_checked_string);
+                mode.setTitle(cabTitel);
+                mode.invalidate();
 
             }
 
@@ -103,11 +113,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                return false;
+                MenuItem item = menu.findItem(R.id.cab_change);
+                if (selCount == 1) {
+                    item.setVisible(true);
+                } else {
+                    item.setVisible(false);
+                }
+                return true;
             }
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                boolean returnValue=true;
                 switch (item.getItemId()) {
                     case R.id.cab_delete:
                         SparseBooleanArray touchedShoppingMemosPosition = shoppingMemoListView.getCheckedItemPositions();
@@ -123,10 +140,15 @@ public class MainActivity extends AppCompatActivity {
                         }
                         showAllListEntries();
                         mode.finish();
-                        return true;
+                        break;
+                    case R.id.cab_change:
+                        break;
+                    default:
+                        returnValue=false;
                 }
 
-                return false;
+
+                return returnValue;
             }
 
             @Override
