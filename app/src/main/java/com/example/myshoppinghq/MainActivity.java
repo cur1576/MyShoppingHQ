@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -94,6 +95,24 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.cab_delete:
+                        SparseBooleanArray touchedShoppingMemosPosition = shoppingMemoListView.getCheckedItemPositions();
+                        for(int i=0; i<touchedShoppingMemosPosition.size(); i++){
+                            boolean isChecked = touchedShoppingMemosPosition.valueAt(i);
+                            if(isChecked){
+                                int positionInListView = touchedShoppingMemosPosition.keyAt(i);
+                                ShoppingMemo shoppingMemo =
+                                        (ShoppingMemo) shoppingMemoListView.getItemAtPosition(positionInListView);
+                                Log.d(TAG, "Position im ListView: " + positionInListView + " Inhalt: " + shoppingMemo.toString());
+                                dataSource.deleteShoppingMemo(shoppingMemo);
+                            }
+                        }
+                        showAllListEntries();
+                        mode.finish();
+                        return true;
+                }
+
                 return false;
             }
 
