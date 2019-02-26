@@ -5,7 +5,16 @@
 
     <string name="action_settings">Settings</string>
 
+
     <string name="cab_delete">Eintrag löschen</string>
+    <string name="cab_change">Eintrag ändern</string>
+    <string name="cab_checked_string">ausgewählt</string>
+
+    <string name="dialog_titel">Listeneintrag ändern</string>
+    <string name="dialog_titel_product">Produkt:</string>
+    <string name="dialog_titel_quantity">Anzahl:</string>
+    <string name="dialog_button_positiv">Ändern</string>
+    <string name="dialog_button_negativ">Abbrechen</string>
 
     <string name="editText_hint_quantity">Anzahl</string>
     <string name="editText_hint_product">Produkt</string>

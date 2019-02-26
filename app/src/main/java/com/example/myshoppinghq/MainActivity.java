@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     ShoppingMemoDataSource dataSource;
+    private  boolean isButtonClick = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +65,19 @@ public class MainActivity extends AppCompatActivity {
             dataSource.createShoppingMemo(product,quantity);
 
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            if(getCurrentFocus()!=null){
+            if(getCurrentFocus()!=null && isButtonClick){
                 inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+
             }
 
             showAllListEntries();
+        });
+        editTextProduct.setOnEditorActionListener((textView,pos,keyEvent)->{
+            isButtonClick=false;
+            buttonAddProduct.performClick();
+            editTextQuantity.requestFocus();
+            isButtonClick=true;
+            return true;
         });
     }
 

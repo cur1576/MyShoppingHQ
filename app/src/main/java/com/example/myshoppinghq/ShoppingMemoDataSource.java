@@ -43,6 +43,23 @@ public class ShoppingMemoDataSource {
         return shoppingMemo;
     }
 
+    public ShoppingMemo updateShoppingMemo(long id, String newProduct, int newQuantity){
+        ContentValues values = new ContentValues();
+        values.put(ShoppingMemoDbHelper.COLUMN_PRODUCT,newProduct);
+        values.put(ShoppingMemoDbHelper.COLUMN_QUANTITY,newQuantity);
+
+        database.update(ShoppingMemoDbHelper.TABLE_SHOPPING_LIST,values,ShoppingMemoDbHelper.COLUMN_ID + "=" + id,
+                null);
+
+        // "Select _id, product, quantity WHERE _id=123";
+        Cursor cursor = database.query(ShoppingMemoDbHelper.TABLE_SHOPPING_LIST,columns,ShoppingMemoDbHelper.COLUMN_ID +"="+id,
+                null,null,null,null);
+        cursor.moveToFirst();
+        ShoppingMemo memo = cursorToShoppingMemo(cursor);
+        cursor.close();
+        return memo;
+    }
+
     public void deleteShoppingMemo(ShoppingMemo shoppingMemo){
         long id = shoppingMemo.getId();
         database.delete(ShoppingMemoDbHelper.TABLE_SHOPPING_LIST,

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     tools:context="com.example.myshoppinghq.MainActivity">
 
     <EditText
@@ -15,6 +16,7 @@
         android:ems="10"
         android:hint="@string/editText_hint_quantity"
         android:inputType="number"
+        android:nextFocusDown="@id/editText_product"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,12 +24,13 @@
         android:id="@+id/editText_product"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/editText_hint_product"
         android:inputType="text"
+        android:imeOptions="actionGo"
         app:layout_constraintEnd_toStartOf="@+id/button_add_prduct"
         app:layout_constraintStart_toEndOf="@+id/editText_quantity"
         app:layout_constraintTop_toTopOf="parent" />
