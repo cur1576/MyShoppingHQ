@@ -1,7 +1,11 @@
 package com.example.myshoppinghq;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -12,16 +16,21 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shoppinglisthq.R;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     ShoppingMemoDataSource dataSource;
     private boolean isButtonClick = true;
+    private ListView mShoppingMemosListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +47,36 @@ public class MainActivity extends AppCompatActivity {
 
         dataSource = new ShoppingMemoDataSource(this);
 
+        initializeShoppingMemosListView();
+
         activateAddButton();
         initializeContextualActionBar();
+    }
+
+    private void initializeShoppingMemosListView() {
+        List<ShoppingMemo> emptyListForInitilisation = new ArrayList<>();
+
+        mShoppingMemosListView = findViewById(R.id.listview_shopping_memos);
+        ArrayAdapter<ShoppingMemo> shoppingMemoArrayAdapter = new ArrayAdapter<ShoppingMemo>(this,
+                android.R.layout.simple_list_item_multiple_choice, emptyListForInitilisation){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position,convertView,parent);
+                TextView textView = (TextView)view;
+
+                ShoppingMemo memo = (ShoppingMemo) mShoppingMemosListView.getItemAtPosition(position);
+                if(memo.isChecked()){
+                    textView.setPaintFlags(textView.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+                    textView.setTextColor(Color.rgb(175,175,175));
+                }else{
+                    textView.setPaintFlags(textView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    textView.setTextColor(Color.DKGRAY);
+                }
+
+                return view;
+            }
+        };
     }
 
 
