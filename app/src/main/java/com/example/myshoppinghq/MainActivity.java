@@ -125,9 +125,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 boolean returnValue=true;
+                SparseBooleanArray touchedShoppingMemosPosition = shoppingMemoListView.getCheckedItemPositions();
                 switch (item.getItemId()) {
                     case R.id.cab_delete:
-                        SparseBooleanArray touchedShoppingMemosPosition = shoppingMemoListView.getCheckedItemPositions();
+
                         for (int i = 0; i < touchedShoppingMemosPosition.size(); i++) {
                             boolean isChecked = touchedShoppingMemosPosition.valueAt(i);
                             if (isChecked) {
@@ -142,6 +143,20 @@ public class MainActivity extends AppCompatActivity {
                         mode.finish();
                         break;
                     case R.id.cab_change:
+
+                        for (int i = 0; i < touchedShoppingMemosPosition.size(); i++) {
+                            boolean isChecked = touchedShoppingMemosPosition.valueAt(i);
+                            if (isChecked) {
+                                int positionInListView = touchedShoppingMemosPosition.keyAt(i);
+                                ShoppingMemo shoppingMemo =
+                                        (ShoppingMemo) shoppingMemoListView.getItemAtPosition(positionInListView);
+                                Log.d(TAG, "Position im ListView: " + positionInListView + " Inhalt: " + shoppingMemo.toString());
+                                AlertDialog editShoppingMemoDialog = createShoppingMemoDialog(shoppingMemo);
+                                editShoppingMemoDialog.show();
+                            }
+                        }
+
+                                mode.finish();
                         break;
                     default:
                         returnValue=false;
@@ -153,19 +168,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
-
+                selCount = 0;
             }
         });
     }
 
-    private AlertDialog CreateShoppingMemoDialog(final ShoppingMemo shoppingMemo) {
+    private AlertDialog createShoppingMemoDialog(final ShoppingMemo shoppingMemo) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
 
         View dialogsView = inflater.inflate(R.layout.dialog_edit_shopping_memo, null);
 
         final EditText editTextNewQuantity = dialogsView.findViewById(R.id.editText_new_quantity);
-        editTextNewQuantity.setText(shoppingMemo.getQuantity());
+        editTextNewQuantity.setText(String.valueOf(shoppingMemo.getQuantity()));
 
         final EditText editTextNewProduct = dialogsView.findViewById(R.id.editText_new_product);
         editTextNewProduct.setText(shoppingMemo.getProduct());
@@ -199,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
+        editTextNewQuantity.setSelection(0,editTextNewQuantity.length());
         return builder.create();
 
     }
