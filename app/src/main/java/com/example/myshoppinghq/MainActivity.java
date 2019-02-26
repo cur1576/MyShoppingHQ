@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                boolean returnValue=true;
+                boolean returnValue = true;
                 SparseBooleanArray touchedShoppingMemosPosition = shoppingMemoListView.getCheckedItemPositions();
                 switch (item.getItemId()) {
                     case R.id.cab_delete:
@@ -159,10 +159,10 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-                                mode.finish();
+                        mode.finish();
                         break;
                     default:
-                        returnValue=false;
+                        returnValue = false;
                 }
 
 
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        editTextNewQuantity.setSelection(0,editTextNewQuantity.length());
+        editTextNewQuantity.setSelection(0, editTextNewQuantity.length());
         return builder.create();
 
     }
