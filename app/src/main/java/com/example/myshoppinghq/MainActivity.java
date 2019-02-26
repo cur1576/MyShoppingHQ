@@ -153,6 +153,9 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(TAG, "Position im ListView: " + positionInListView + " Inhalt: " + shoppingMemo.toString());
                                 AlertDialog editShoppingMemoDialog = createShoppingMemoDialog(shoppingMemo);
                                 editShoppingMemoDialog.show();
+//                                View forKeyboard = editShoppingMemoDialog.getCurrentFocus();
+//                                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                                imm.showSoftInput(getCurrentFocus(),InputMethodManager.RESULT_SHOWN);
                             }
                         }
 
@@ -197,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Felder dürfen nicht leer sein", Toast.LENGTH_SHORT).show();
                             return;
                         }
+
                         int quantity = Integer.parseInt(quantityString);
 
                         ShoppingMemo memo = dataSource.updateShoppingMemo(shoppingMemo.getId(), product, quantity);
@@ -206,6 +210,8 @@ public class MainActivity extends AppCompatActivity {
 
                         showAllListEntries();
                         dialog.dismiss();
+//                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                        imm.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(),InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }
                 })
                 .setNegativeButton(R.string.dialog_button_negativ, new DialogInterface.OnClickListener() {
