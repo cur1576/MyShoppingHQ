@@ -9,7 +9,7 @@ import android.util.Log;
 public class ShoppingMemoDbHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "shoppinglist_db";
-    public static final int DB_VERSION = 4;
+    public static final int DB_VERSION = 1;
 
     public static final String TABLE_SHOPPING_LIST = "shopping_list";
 
