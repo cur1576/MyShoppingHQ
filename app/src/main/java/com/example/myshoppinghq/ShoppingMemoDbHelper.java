@@ -9,7 +9,7 @@ import android.util.Log;
 public class ShoppingMemoDbHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "shoppinglist_db";
-    public static final int DB_VERSION = 2;
+    public static final int DB_VERSION = 4;
 
     public static final String TABLE_SHOPPING_LIST = "shopping_list";
 
@@ -22,7 +22,7 @@ public class ShoppingMemoDbHelper extends SQLiteOpenHelper {
             "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_PRODUCT + " TEXT NOT NULL, " +
             COLUMN_QUANTITY + " INTEGER NOT NULL, " +
-            COLUMN_CHECKED + "BOOLEAN NOT NULL DEFAULT 0);";
+            COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);";
 
     public static final String SQL_DROP = "DROP TABLE IF EXISTS " + TABLE_SHOPPING_LIST;
 

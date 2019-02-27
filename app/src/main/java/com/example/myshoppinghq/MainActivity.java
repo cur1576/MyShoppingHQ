@@ -79,6 +79,13 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mShoppingMemosListView.setAdapter(shoppingMemoArrayAdapter);
+
+        mShoppingMemosListView.setOnItemClickListener((parent, view, position, id) -> {
+            ShoppingMemo memo = (ShoppingMemo) parent.getItemAtPosition(position);
+            ShoppingMemo updateMemo = dataSource.updateShoppingMemo(memo.getId(),
+                    memo.getProduct(),memo.getQuantity(),!memo.isChecked());
+            showAllListEntries();
+        });
     }
 
 
@@ -243,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
                         int quantity = Integer.parseInt(quantityString);
 
-                        ShoppingMemo memo = dataSource.updateShoppingMemo(shoppingMemo.getId(), product, quantity);
+                        ShoppingMemo memo = dataSource.updateShoppingMemo(shoppingMemo.getId(), product, quantity, shoppingMemo.isChecked());
 
                         Log.d(TAG, "Alter Eintrag - ID: " + shoppingMemo.getId() + " Inhalt: " + shoppingMemo.toString());
                         Log.d(TAG, "Neuer Eintrag - ID: " + memo.getId() + " Inhalt: " + memo.toString());
@@ -281,15 +288,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAllListEntries() {
-        List<ShoppingMemo> shoppingMemos = dataSource.getAllShoppingMemos();
-
-        ArrayAdapter<ShoppingMemo> shoppingMemoArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_multiple_choice, shoppingMemos);
-
-        ListView shoppingMemoListView = findViewById(R.id.listview_shopping_memos);
-        shoppingMemoListView.setAdapter(shoppingMemoArrayAdapter);
-
-
+        List<ShoppingMemo> shoppingMemoList = dataSource.getAllShoppingMemos();
+        ArrayAdapter<ShoppingMemo> adapter = (ArrayAdapter<ShoppingMemo>) mShoppingMemosListView.getAdapter();
+        adapter.clear();
+        adapter.addAll(shoppingMemoList);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
