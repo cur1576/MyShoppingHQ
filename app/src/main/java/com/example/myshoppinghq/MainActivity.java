@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
                 TextView textView = (TextView)view;
 
                 ShoppingMemo memo = (ShoppingMemo) mShoppingMemosListView.getItemAtPosition(position);
+
+                Log.d(TAG, "ArrayAdapter .. getView: " + position + " : " + memo.toString());
+
                 if(memo.isChecked()){
                     textView.setPaintFlags(textView.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
                     textView.setTextColor(Color.rgb(175,175,175));
